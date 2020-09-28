@@ -4,9 +4,23 @@ import { TouchableOpacity } from "react-native-gesture-handler";
 import red_blob from "../images/red_blob.png";
 import cyan_blob from "../images/cyan_blob.png";
 import Swiper from "../components/Swiper";
-import LandingButtons from "../components/LandingButtons";
+import { AppLoading } from "expo";
+import {
+  useFonts,
+  Raleway_400Regular,
+  Raleway_500Medium,
+  Raleway_800ExtraBold,
+} from "@expo-google-fonts/raleway";
 
 const LandingPage = ({ navigation }) => {
+  let [fontsLoaded, error] = useFonts({
+    Regular: Raleway_400Regular,
+    ExtraBold: Raleway_800ExtraBold,
+    Medium: Raleway_500Medium,
+  });
+  if (!fontsLoaded) {
+    return <AppLoading />;
+  }
   return (
     <View style={styles.container}>
       <View style={{ flex: 10 }}>
@@ -31,7 +45,7 @@ const LandingPage = ({ navigation }) => {
               left: 120,
             }}
           />
-          <View style={{ marginVertical: 50 }}>
+          <View style={{ marginVertical: 80 }}>
             <Text style={styles.landing_text}>BBEKO</Text>
             <View
               style={{
@@ -39,11 +53,16 @@ const LandingPage = ({ navigation }) => {
                 flexDirection: "row",
                 justifyContent: "space-between",
                 marginHorizontal: 80,
+                marginVertical: 20,
               }}
             >
-              <Text style={{ color: "#fff" }}>Register</Text>
-              <Text style={{ color: "#fff" }}>Pay</Text>
-              <Text style={{ color: "#fff" }}>Delivered</Text>
+              <Text style={{ color: "#fff", fontFamily: "Medium" }}>
+                Register
+              </Text>
+              <Text style={{ color: "#fff", fontFamily: "Medium" }}>Pay</Text>
+              <Text style={{ color: "#fff", fontFamily: "Medium" }}>
+                Delivered
+              </Text>
             </View>
           </View>
         </View>
@@ -58,9 +77,11 @@ const LandingPage = ({ navigation }) => {
           <View style={{ flex: 6 }}>
             <Swiper />
           </View>
-          <View style={{ flex: 4, alignItems: "center", backgroundColor: '#fff'}}>
+          <View
+            style={{ flex: 4, alignItems: "center", backgroundColor: "#fff" }}
+          >
             <TouchableOpacity
-              onPress={() => navigation.navigate("Landing")}
+              onPress={() => navigation.navigate("register")}
               style={{
                 backgroundColor: "#000",
                 borderRadius: 50,
@@ -72,14 +93,15 @@ const LandingPage = ({ navigation }) => {
                 style={{
                   color: "#fff",
                   paddingVertical: 20,
-                  paddingHorizontal: 100,
+                  paddingHorizontal: 118,
+                  fontFamily: "ExtraBold"
                 }}
               >
                 SIGN UP
               </Text>
             </TouchableOpacity>
             <TouchableOpacity
-              onPress={() => navigation.navigate("Landing")}
+              onPress={() => navigation.navigate("login")}
               style={{
                 backgroundColor: "#fff",
                 borderRadius: 50,
@@ -92,7 +114,9 @@ const LandingPage = ({ navigation }) => {
                 style={{
                   color: "#000",
                   paddingVertical: 18,
-                  paddingHorizontal: 100,
+                  paddingHorizontal: 120,
+                  fontFamily: "ExtraBold"
+
                 }}
               >
                 LOGIN
@@ -114,5 +138,9 @@ const styles = StyleSheet.create({
   },
   landing_text: {
     alignSelf: "center",
+    fontFamily: "ExtraBold",
+    fontSize: 40,
+    color: "#fff",
+    letterSpacing: 1,
   },
 });
