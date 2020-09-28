@@ -1019,6 +1019,16 @@
   dependencies:
     "@types/hammerjs" "^2.0.36"
 
+"@expo-google-fonts/raleway@^0.1.0":
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/@expo-google-fonts/raleway/-/raleway-0.1.0.tgz#c4828702327a269126acacb1017ee51adb3e851e"
+  integrity sha512-cBQmoq+Rw64dwni79kQaMLZaYaOEhDMZkdX7P9fBcv89aB7pVRot8qGUCJ75ly1hPmVTrLoV+XfxnTTIJ20+bg==
+
+"@expo-google-fonts/secular-one@^0.1.0":
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/@expo-google-fonts/secular-one/-/secular-one-0.1.0.tgz#27c5c3b8e6d229544758d50932204bbe856377db"
+  integrity sha512-cVTeH0x0YhyVPPUvvomORSV+z3ztuH+tQO8fMgB3WtMQTDp2BM/lSgzH8Sql1LZGdDJ0+mdJQQ5Sj0LwMSA8Hg==
+
 "@expo/configure-splash-screen@0.1.13":
   version "0.1.13"
   resolved "https://registry.yarnpkg.com/@expo/configure-splash-screen/-/configure-splash-screen-0.1.13.tgz#9f974146d716ffc03461e4d2deb7bfb22826e56a"

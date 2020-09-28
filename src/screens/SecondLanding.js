@@ -10,15 +10,15 @@ const LandingPage = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <View style={{ flex: 10 }}>
-        <View style={{ flex: 3 }}>
+        <View style={{ flex: 4 }}>
           <Image
             source={red_blob}
             style={{
               position: "absolute",
-              width: 250,
-              height: 250,
-              bottom: 30,
-              right: 190,
+              width: 300,
+              height: 300,
+              bottom: 50,
+              right: 170,
             }}
           />
           <Image
@@ -27,7 +27,7 @@ const LandingPage = ({ navigation }) => {
               position: "absolute",
               width: 350,
               height: 350,
-              top: 10,
+              top: 50,
               left: 120,
             }}
           />
@@ -49,7 +49,7 @@ const LandingPage = ({ navigation }) => {
         </View>
         <View
           style={{
-            flex: 7,
+            flex: 6,
             backgroundColor: "#fff",
             borderTopLeftRadius: 50,
             borderTopRightRadius: 50,
