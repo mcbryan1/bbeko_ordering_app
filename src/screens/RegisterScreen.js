@@ -1,7 +1,11 @@
 import React, { Component } from "react";
-import { Text, View, StyleSheet, TextInput } from "react-native";
+import { Text, View, StyleSheet, TextInput, Image } from "react-native";
 import { AntDesign, FontAwesome5, Entypo, Feather } from "@expo/vector-icons";
 import { ScrollView, TouchableOpacity } from "react-native-gesture-handler";
+import red from '../images/red.png'
+import blue from '../images/blue.png'
+import cyan from '../images/cyan.png'
+
 
 const styles = StyleSheet.create({
   container: {
@@ -47,7 +51,7 @@ const styles = StyleSheet.create({
     elevation: 20,
   },
 });
-export class RegisterScreen extends Component {
+class RegisterScreen extends Component {
   constructor(props) {
     super(props);
 
@@ -71,15 +75,14 @@ export class RegisterScreen extends Component {
   render() {
     const { navigation } = this.props;
 
-
-const styles = StyleSheet.create({})
-const RegisterScreen = () => {
-
     return (
       <View style={styles.container}>
         {/* *********** Top Header ********* */}
 
         <View style={{ flex: 4 }}>
+        <Image source={red} style={{position: 'absolute', width: 360, height: 80,}}/>
+        <Image source={blue} style={{position: 'absolute', width: 360, height: 80, top: 40,}}/>
+        <Image source={cyan} style={{position: 'absolute', width: 370, height: 110, bottom: 10,}}/>
           <View style={{ marginVertical: 80 }}>
             <Text style={styles.landing_text}>BBEKO</Text>
             <View
@@ -120,7 +123,9 @@ const RegisterScreen = () => {
             }}
           >
             <View style={{ flex: 4 }}>
-              <TouchableOpacity onPress={() => navigation.navigate("SecondLanding")}>
+              <TouchableOpacity
+                onPress={() => navigation.navigate("SecondLanding")}
+              >
                 <AntDesign
                   name="left"
                   size={25}
@@ -228,6 +233,4 @@ const RegisterScreen = () => {
   }
 }
 
-
 export default RegisterScreen;
-
