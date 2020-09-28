@@ -3,6 +3,7 @@ import { Text, View, StyleSheet, TextInput } from "react-native";
 import { AntDesign, FontAwesome5, Entypo, Feather } from "@expo/vector-icons";
 import { ScrollView, TouchableOpacity } from "react-native-gesture-handler";
 
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -51,6 +52,11 @@ export class LoginScreen extends Component {
 
   render() {
     const { navigation } = this.props;
+
+
+const styles = StyleSheet.create({})
+const LoginScreen = () => {
+
     return (
       <View style={styles.container}>
         {/* *********** Top Header ********* */}
@@ -176,4 +182,6 @@ export class LoginScreen extends Component {
   }
 }
 
+
 export default LoginScreen;
+
