@@ -70,6 +70,11 @@ export class RegisterScreen extends Component {
   };
   render() {
     const { navigation } = this.props;
+
+
+const styles = StyleSheet.create({})
+const RegisterScreen = () => {
+
     return (
       <View style={styles.container}>
         {/* *********** Top Header ********* */}
@@ -223,4 +228,6 @@ export class RegisterScreen extends Component {
   }
 }
 
+
 export default RegisterScreen;
+
