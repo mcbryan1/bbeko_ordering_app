@@ -2,6 +2,9 @@ import React, {Component} from "react";
 import { Text, View, StyleSheet, TextInput, Image } from "react-native";
 import { AntDesign, FontAwesome5, Entypo, Feather } from "@expo/vector-icons";
 import { ScrollView, TouchableOpacity } from "react-native-gesture-handler";
+
+import { connect } from "react-redux";
+import { loginForm } from "../Redux/Actions/authActions";
 import red from '../images/red.png'
 import blue from '../images/blue.png'
 import cyan from '../images/cyan.png'
@@ -34,6 +37,7 @@ const styles = StyleSheet.create({
     marginVertical: 15,
   },
 });
+class LoginScreen extends Component {
 class LoginScreen extends Component{
   constructor(props) {
     super(props);
@@ -43,16 +47,19 @@ class LoginScreen extends Component{
       password: "",
     };
   }
-  handleTextChange = (name, value) => {
+  handleUpdateState = (name, value) => {
     this.setState({
       [name]: value,
     });
   };
-  handleSubmit = () => {
-    this.props.signIn(this.state.email, this.state.password);
+
+  handleOnSubmit = () => {
+    this.props.loginForm(this.state.email, this.state.password);
   };
 
   render() {
+    const { navigation, auth } = this.props;
+
     const { navigation } = this.props;
     return (
       <View style={styles.container}>
@@ -103,7 +110,7 @@ class LoginScreen extends Component{
           >
             <View style={{ flex: 4 }}>
               <TouchableOpacity
-                onPress={() => navigation.navigate("SecondLanding")}
+                onPress={() => navigation.navigate("Second Landing")}
               >
                 <AntDesign
                   name="left"
@@ -119,7 +126,11 @@ class LoginScreen extends Component{
               </Text>
             </View>
           </View>
-
+          {auth.error.register && (
+            <Text style={{ color: "red", alignSelf: "center" }}>
+              {auth.error.register}
+            </Text>
+          )}
           {/* *********** Form Container ********* */}
           <View style={styles.formContainer}>
             <ScrollView>
@@ -134,7 +145,7 @@ class LoginScreen extends Component{
                   placeholder="Email"
                   keyboardType="email-address"
                   value={this.state.email}
-                  onChangeText={(text) => this.handleTextChange("email", text)}
+                  onChangeText={(text) => this.handleUpdateState("email", text)}
                 />
               </View>
               <View style={styles.textField}>
@@ -149,7 +160,7 @@ class LoginScreen extends Component{
                   secureTextEntry={true}
                   value={this.state.password}
                   onChangeText={(text) =>
-                    this.handleTextChange("password", text)
+                    this.handleUpdateState("password", text)
                   }
                 />
               </View>
@@ -160,7 +171,7 @@ class LoginScreen extends Component{
                   marginBottom: 20,
                   marginTop: 70,
                 }}
-                onPress={this.handleSubmit}
+                onPress={this.handleOnSubmit}
               >
                 <Text
                   style={{
@@ -182,4 +193,8 @@ class LoginScreen extends Component{
   }
 }
 
+const mapStateToProp = (state) => {
+  return { auth: state };
+};
+export default connect(mapStateToProp, { loginForm })(LoginScreen);
 export default LoginScreen;

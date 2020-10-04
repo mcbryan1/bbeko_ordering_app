@@ -5,31 +5,47 @@ import { NavigationContainer } from "@react-navigation/native";
 import SecondLanding from "../screens/SecondLanding";
 import LoginScreen from "../screens/LoginScreen";
 import RegisterScreen from "../screens/RegisterScreen";
+import MainPage from "../screens/MainPage";
+import { connect } from "react-redux";
 
 const Stack = createStackNavigator();
 
-export default function StackNavigation() {
+function StackNavigation({ auth }) {
   return (
     <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen
-          name="SecondLanding"
-          component={SecondLanding}
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen
-          name="login"
-          component={LoginScreen}
-          options={{ headerShown: false }}
-        />
-         <Stack.Screen
-          name="register"
-          component={RegisterScreen}
-          options={{ headerShown: false }}
-        />
-      </Stack.Navigator>
+      {auth.login ? (
+        <Stack.Navigator initialRouteName={SecondLanding}>
+          <Stack.Screen
+            name="main"
+            component={MainPage}
+            options={{ headerShown: false }}
+          />
+        </Stack.Navigator>
+      ) : (
+        <Stack.Navigator>
+          <Stack.Screen
+            name="Second Landing"
+            component={SecondLanding}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="login"
+            component={LoginScreen}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="register"
+            component={RegisterScreen}
+            options={{ headerShown: false }}
+          />
+        </Stack.Navigator>
+      )}
     </NavigationContainer>
   );
 }
 
 const styles = StyleSheet.create({});
+const mapStateToProp = (state) => {
+  return { auth: state };
+};
+export default connect(mapStateToProp)(StackNavigation);
