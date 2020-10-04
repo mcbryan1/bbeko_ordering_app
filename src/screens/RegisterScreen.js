@@ -2,52 +2,10 @@ import React, { Component } from "react";
 import { Text, View, StyleSheet, TextInput } from "react-native";
 import { AntDesign, FontAwesome5, Entypo, Feather } from "@expo/vector-icons";
 import { ScrollView, TouchableOpacity } from "react-native-gesture-handler";
+import { connect } from "react-redux";
+import { registrationForm, registerError } from "../Redux/Actions/authActions";
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#000",
-  },
-  landing_text: {
-    alignSelf: "center",
-    fontFamily: "ExtraBold",
-    fontSize: 40,
-    color: "#fff",
-    letterSpacing: 1,
-  },
-  formContainer: {
-    paddingHorizontal: 15,
-  },
-  textField: {
-    marginBottom: 12,
-    fontSize: 18,
-    backgroundColor: "#fff",
-    paddingHorizontal: 30,
-    paddingVertical: 10,
-    borderColor: "#ccc",
-    borderWidth: 1,
-    borderRadius: 50,
-    flexDirection: "row",
-    alignItems: "center",
-  },
-  registerBtn: {
-    marginTop: 10,
-    marginBottom: 30,
-    paddingHorizontal: 35,
-    paddingVertical: 10,
-    marginHorizontal: 15,
-    alignSelf: "flex-end",
-    justifyContent: "flex-end",
-    flexDirection: "row",
-    backgroundColor: "#000",
-    padding: 10,
-    borderTopLeftRadius: 50,
-    borderBottomLeftRadius: 50,
-    alignItems: "center",
-    elevation: 20,
-  },
-});
-export class RegisterScreen extends Component {
+class RegisterScreen extends Component {
   constructor(props) {
     super(props);
 
@@ -58,23 +16,21 @@ export class RegisterScreen extends Component {
       password: "",
     };
   }
-  handleTextChange = (name, value) => {
+  handleUpdateState = (name, value) => {
     this.setState({
       [name]: value,
     });
   };
-  handleSubmit = () => {
-    const { firstName, lastName, email, password } = this.state;
 
-    this.props.registerUser(firstName, lastName, email, password);
+  handleOnSubmit = () => {
+    if (this.state.password !== this.state.confirm) {
+      this.props.registerError("Email And Password required.");
+      return;
+    }
+    this.props.registrationForm(this.state.email, this.state.password);
   };
   render() {
-    const { navigation } = this.props;
-
-
-const styles = StyleSheet.create({})
-const RegisterScreen = () => {
-
+    const { auth, navigation } = this.props;
     return (
       <View style={styles.container}>
         {/* *********** Top Header ********* */}
@@ -120,7 +76,9 @@ const RegisterScreen = () => {
             }}
           >
             <View style={{ flex: 4 }}>
-              <TouchableOpacity onPress={() => navigation.navigate("SecondLanding")}>
+              <TouchableOpacity
+                onPress={() => navigation.navigate("Second Landing")}
+              >
                 <AntDesign
                   name="left"
                   size={25}
@@ -129,13 +87,16 @@ const RegisterScreen = () => {
                 />
               </TouchableOpacity>
             </View>
+
             <View style={{ flex: 6 }}>
               <Text style={{ fontFamily: "ExtraBold", fontSize: 20 }}>
                 Sign up
               </Text>
             </View>
           </View>
-
+          {auth.error.register && (
+            <Text style={{ color: "red", alignSelf: 'center' }}>{auth.error.register}</Text>
+          )}
           {/* *********** Form Container ********* */}
           <View style={styles.formContainer}>
             <ScrollView>
@@ -151,7 +112,7 @@ const RegisterScreen = () => {
                   returnKeyType="next"
                   value={this.state.firstName}
                   onChangeText={(text) =>
-                    this.handleTextChange("firstName", text)
+                    this.handleUpdateState("firstName", text)
                   }
                 />
               </View>
@@ -166,7 +127,7 @@ const RegisterScreen = () => {
                   placeholder="Last Name"
                   value={this.state.lastName}
                   onChangeText={(text) =>
-                    this.handleTextChange("lastName", text)
+                    this.handleUpdateState("lastName", text)
                   }
                 />
               </View>
@@ -181,7 +142,7 @@ const RegisterScreen = () => {
                   placeholder="Email"
                   keyboardType="email-address"
                   value={this.state.email}
-                  onChangeText={(text) => this.handleTextChange("email", text)}
+                  onChangeText={(text) => this.handleUpdateState("email", text)}
                 />
               </View>
               <View style={styles.textField}>
@@ -196,7 +157,7 @@ const RegisterScreen = () => {
                   secureTextEntry={true}
                   value={this.state.password}
                   onChangeText={(text) =>
-                    this.handleTextChange("password", text)
+                    this.handleUpdateState("password", text)
                   }
                 />
               </View>
@@ -206,7 +167,7 @@ const RegisterScreen = () => {
                   borderRadius: 50,
                   marginBottom: 20,
                 }}
-                onPress={this.handleSubmit}
+                onPress={this.handleOnSubmit}
               >
                 <Text
                   style={{
@@ -228,6 +189,53 @@ const RegisterScreen = () => {
   }
 }
 
-
-export default RegisterScreen;
-
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: "#000",
+  },
+  landing_text: {
+    alignSelf: "center",
+    fontFamily: "ExtraBold",
+    fontSize: 40,
+    color: "#fff",
+    letterSpacing: 1,
+  },
+  formContainer: {
+    paddingHorizontal: 15,
+  },
+  textField: {
+    marginBottom: 12,
+    fontSize: 18,
+    backgroundColor: "#fff",
+    paddingHorizontal: 30,
+    paddingVertical: 10,
+    borderColor: "#ccc",
+    borderWidth: 1,
+    borderRadius: 50,
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  registerBtn: {
+    marginTop: 10,
+    marginBottom: 30,
+    paddingHorizontal: 35,
+    paddingVertical: 10,
+    marginHorizontal: 15,
+    alignSelf: "flex-end",
+    justifyContent: "flex-end",
+    flexDirection: "row",
+    backgroundColor: "#000",
+    padding: 10,
+    borderTopLeftRadius: 50,
+    borderBottomLeftRadius: 50,
+    alignItems: "center",
+    elevation: 20,
+  },
+});
+const mapStateToProp = (state) => {
+  return { auth: state };
+};
+export default connect(mapStateToProp, { registrationForm, registerError })(
+  RegisterScreen
+);
