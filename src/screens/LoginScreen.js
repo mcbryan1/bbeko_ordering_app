@@ -1,9 +1,13 @@
-import React, { Component } from "react";
-import { Text, View, StyleSheet, TextInput } from "react-native";
+import React, {Component} from "react";
+import { Text, View, StyleSheet, TextInput, Image } from "react-native";
 import { AntDesign, FontAwesome5, Entypo, Feather } from "@expo/vector-icons";
 import { ScrollView, TouchableOpacity } from "react-native-gesture-handler";
+
 import { connect } from "react-redux";
 import { loginForm } from "../Redux/Actions/authActions";
+import red from '../images/red.png'
+import blue from '../images/blue.png'
+import cyan from '../images/cyan.png'
 
 const styles = StyleSheet.create({
   container: {
@@ -34,6 +38,7 @@ const styles = StyleSheet.create({
   },
 });
 class LoginScreen extends Component {
+class LoginScreen extends Component{
   constructor(props) {
     super(props);
 
@@ -55,11 +60,15 @@ class LoginScreen extends Component {
   render() {
     const { navigation, auth } = this.props;
 
+    const { navigation } = this.props;
     return (
       <View style={styles.container}>
         {/* *********** Top Header ********* */}
 
         <View style={{ flex: 4 }}>
+        <Image source={red} style={{position: 'absolute', width: 360, height: 80,}}/>
+        <Image source={blue} style={{position: 'absolute', width: 360, height: 80, top: 40,}}/>
+        <Image source={cyan} style={{position: 'absolute', width: 370, height: 110, bottom: 10,}}/>
           <View style={{ marginVertical: 80 }}>
             <Text style={styles.landing_text}>BBEKO</Text>
             <View
@@ -188,3 +197,4 @@ const mapStateToProp = (state) => {
   return { auth: state };
 };
 export default connect(mapStateToProp, { loginForm })(LoginScreen);
+export default LoginScreen;

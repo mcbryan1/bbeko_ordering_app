@@ -1,10 +1,59 @@
 import React, { Component } from "react";
-import { Text, View, StyleSheet, TextInput } from "react-native";
+import { Text, View, StyleSheet, TextInput, Image } from "react-native";
 import { AntDesign, FontAwesome5, Entypo, Feather } from "@expo/vector-icons";
 import { ScrollView, TouchableOpacity } from "react-native-gesture-handler";
 import { connect } from "react-redux";
 import { registrationForm, registerError } from "../Redux/Actions/authActions";
 
+import red from '../images/red.png'
+import blue from '../images/blue.png'
+import cyan from '../images/cyan.png'
+
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: "#000",
+  },
+  landing_text: {
+    alignSelf: "center",
+    fontFamily: "ExtraBold",
+    fontSize: 40,
+    color: "#fff",
+    letterSpacing: 1,
+  },
+  formContainer: {
+    paddingHorizontal: 15,
+  },
+  textField: {
+    marginBottom: 12,
+    fontSize: 18,
+    backgroundColor: "#fff",
+    paddingHorizontal: 30,
+    paddingVertical: 10,
+    borderColor: "#ccc",
+    borderWidth: 1,
+    borderRadius: 50,
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  registerBtn: {
+    marginTop: 10,
+    marginBottom: 30,
+    paddingHorizontal: 35,
+    paddingVertical: 10,
+    marginHorizontal: 15,
+    alignSelf: "flex-end",
+    justifyContent: "flex-end",
+    flexDirection: "row",
+    backgroundColor: "#000",
+    padding: 10,
+    borderTopLeftRadius: 50,
+    borderBottomLeftRadius: 50,
+    alignItems: "center",
+    elevation: 20,
+  },
+});
 class RegisterScreen extends Component {
   constructor(props) {
     super(props);
@@ -31,11 +80,16 @@ class RegisterScreen extends Component {
   };
   render() {
     const { auth, navigation } = this.props;
+    const { navigation } = this.props;
+
     return (
       <View style={styles.container}>
         {/* *********** Top Header ********* */}
 
         <View style={{ flex: 4 }}>
+        <Image source={red} style={{position: 'absolute', width: 360, height: 80,}}/>
+        <Image source={blue} style={{position: 'absolute', width: 360, height: 80, top: 40,}}/>
+        <Image source={cyan} style={{position: 'absolute', width: 370, height: 110, bottom: 10,}}/>
           <View style={{ marginVertical: 80 }}>
             <Text style={styles.landing_text}>BBEKO</Text>
             <View
@@ -78,6 +132,7 @@ class RegisterScreen extends Component {
             <View style={{ flex: 4 }}>
               <TouchableOpacity
                 onPress={() => navigation.navigate("Second Landing")}
+                onPress={() => navigation.navigate("SecondLanding")}
               >
                 <AntDesign
                   name="left"
@@ -239,3 +294,4 @@ const mapStateToProp = (state) => {
 export default connect(mapStateToProp, { registrationForm, registerError })(
   RegisterScreen
 );
+export default RegisterScreen;
