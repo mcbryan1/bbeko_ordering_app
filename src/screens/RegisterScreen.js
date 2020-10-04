@@ -4,63 +4,19 @@ import { AntDesign, FontAwesome5, Entypo, Feather } from "@expo/vector-icons";
 import { ScrollView, TouchableOpacity } from "react-native-gesture-handler";
 import { connect } from "react-redux";
 import { registrationForm, registerError } from "../Redux/Actions/authActions";
-
 import red from '../images/red.png'
 import blue from '../images/blue.png'
 import cyan from '../images/cyan.png'
 
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#000",
-  },
-  landing_text: {
-    alignSelf: "center",
-    fontFamily: "ExtraBold",
-    fontSize: 40,
-    color: "#fff",
-    letterSpacing: 1,
-  },
-  formContainer: {
-    paddingHorizontal: 15,
-  },
-  textField: {
-    marginBottom: 12,
-    fontSize: 18,
-    backgroundColor: "#fff",
-    paddingHorizontal: 30,
-    paddingVertical: 10,
-    borderColor: "#ccc",
-    borderWidth: 1,
-    borderRadius: 50,
-    flexDirection: "row",
-    alignItems: "center",
-  },
-  registerBtn: {
-    marginTop: 10,
-    marginBottom: 30,
-    paddingHorizontal: 35,
-    paddingVertical: 10,
-    marginHorizontal: 15,
-    alignSelf: "flex-end",
-    justifyContent: "flex-end",
-    flexDirection: "row",
-    backgroundColor: "#000",
-    padding: 10,
-    borderTopLeftRadius: 50,
-    borderBottomLeftRadius: 50,
-    alignItems: "center",
-    elevation: 20,
-  },
-});
+
 class RegisterScreen extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      firstName: "",
-      lastName: "",
+      fullName: "",
+      confirmPassword: "",
       email: "",
       password: "",
     };
@@ -72,7 +28,7 @@ class RegisterScreen extends Component {
   };
 
   handleOnSubmit = () => {
-    if (this.state.password !== this.state.confirm) {
+    if (this.state.password !== this.state.confirmPassword) {
       this.props.registerError("Email And Password required.");
       return;
     }
@@ -80,7 +36,6 @@ class RegisterScreen extends Component {
   };
   render() {
     const { auth, navigation } = this.props;
-    const { navigation } = this.props;
 
     return (
       <View style={styles.container}>
@@ -132,7 +87,6 @@ class RegisterScreen extends Component {
             <View style={{ flex: 4 }}>
               <TouchableOpacity
                 onPress={() => navigation.navigate("Second Landing")}
-                onPress={() => navigation.navigate("SecondLanding")}
               >
                 <AntDesign
                   name="left"
@@ -165,27 +119,13 @@ class RegisterScreen extends Component {
                 <TextInput
                   placeholder="First Name"
                   returnKeyType="next"
-                  value={this.state.firstName}
+                  value={this.state.fullName}
                   onChangeText={(text) =>
-                    this.handleUpdateState("firstName", text)
+                    this.handleUpdateState("fullName", text)
                   }
                 />
               </View>
-              <View style={styles.textField}>
-                <FontAwesome5
-                  name="user-alt"
-                  size={20}
-                  color="black"
-                  style={{ marginRight: 30, elevation: 20 }}
-                />
-                <TextInput
-                  placeholder="Last Name"
-                  value={this.state.lastName}
-                  onChangeText={(text) =>
-                    this.handleUpdateState("lastName", text)
-                  }
-                />
-              </View>
+              
               <View style={styles.textField}>
                 <Entypo
                   name="email"
@@ -202,7 +142,7 @@ class RegisterScreen extends Component {
               </View>
               <View style={styles.textField}>
                 <Entypo
-                  name="lock"
+                  name="lock-open"
                   size={20}
                   color="black"
                   style={{ marginRight: 30, elevation: 20 }}
@@ -213,6 +153,22 @@ class RegisterScreen extends Component {
                   value={this.state.password}
                   onChangeText={(text) =>
                     this.handleUpdateState("password", text)
+                  }
+                />
+              </View>
+              <View style={styles.textField}>
+                <Entypo
+                  name="lock"
+                  size={20}
+                  color="black"
+                  style={{ marginRight: 30, elevation: 20 }}
+                />
+                <TextInput
+                  placeholder="Confirm Password"
+                  secureTextEntry={true}
+                  value={this.state.confirmPassword}
+                  onChangeText={(text) =>
+                    this.handleUpdateState("confirmPassword", text)
                   }
                 />
               </View>
@@ -294,4 +250,3 @@ const mapStateToProp = (state) => {
 export default connect(mapStateToProp, { registrationForm, registerError })(
   RegisterScreen
 );
-export default RegisterScreen;

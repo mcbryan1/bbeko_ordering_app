@@ -2,7 +2,6 @@ import React, {Component} from "react";
 import { Text, View, StyleSheet, TextInput, Image } from "react-native";
 import { AntDesign, FontAwesome5, Entypo, Feather } from "@expo/vector-icons";
 import { ScrollView, TouchableOpacity } from "react-native-gesture-handler";
-
 import { connect } from "react-redux";
 import { loginForm } from "../Redux/Actions/authActions";
 import red from '../images/red.png'
@@ -38,7 +37,6 @@ const styles = StyleSheet.create({
   },
 });
 class LoginScreen extends Component {
-class LoginScreen extends Component{
   constructor(props) {
     super(props);
 
@@ -60,7 +58,6 @@ class LoginScreen extends Component{
   render() {
     const { navigation, auth } = this.props;
 
-    const { navigation } = this.props;
     return (
       <View style={styles.container}>
         {/* *********** Top Header ********* */}
@@ -197,4 +194,3 @@ const mapStateToProp = (state) => {
   return { auth: state };
 };
 export default connect(mapStateToProp, { loginForm })(LoginScreen);
-export default LoginScreen;
